@@ -56,6 +56,7 @@ dependencies {
     implementation 'io.jmix.translations:jmix-translations-ru'
     implementation 'gr.netmechanics.jmix:jmix-multilingual-field-starter'
     implementation 'de.bytestore:swagger-ui-starter'
+    implementation 'io.jmix.rest:jmix-rest-starter'
 }
 
 configurations.implementation {
