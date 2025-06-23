@@ -3,6 +3,7 @@
 
     <menu id="application" title="msg://uz.tonexus.ztalimcrm/menu.application.title" opened="true">
         <item view="User.list" title="msg://uz.tonexus.ztalimcrm.view.user/UserListView.title"/>
+        <item view="Student.list" title="msg://uz.tonexus.ztalimcrm.view.student/studentListView.title"/>
     </menu>
 
 </menu-config>
