@@ -4,6 +4,10 @@
     <menu id="application" title="msg://uz.tonexus.ztalimcrm/menu.application.title" opened="true">
         <item view="User.list" title="msg://uz.tonexus.ztalimcrm.view.user/UserListView.title"/>
         <item view="Student.list" title="msg://uz.tonexus.ztalimcrm.view.student/studentListView.title"/>
+        <item view="Course.list" title="msg://uz.tonexus.ztalimcrm.view.course/courseListView.title"/>
+        <item view="StudyRoom.list" title="msg://uz.tonexus.ztalimcrm.view.studyroom/studyRoomListView.title"/>
+        <item view="Schedule.list" title="msg://uz.tonexus.ztalimcrm.view.schedule/scheduleListView.title"/>
+        <item view="Group_.list" title="msg://uz.tonexus.ztalimcrm.view.group/groupListView.title"/>
     </menu>
 
 </menu-config>

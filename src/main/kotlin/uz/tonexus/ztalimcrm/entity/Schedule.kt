@@ -13,6 +13,7 @@ import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedBy
 import org.springframework.data.annotation.LastModifiedDate
+import java.time.LocalDateTime
 import java.time.OffsetDateTime
 import java.util.*
 
@@ -30,6 +31,14 @@ open class Schedule {
     @Id
     var id: UUID? = null
 
+    @Column(name = "START_TIME", nullable = false)
+    @NotNull
+    var startTime: LocalDateTime? = null
+
+    @Column(name = "END_TIME", nullable = false)
+    @NotNull
+    var endTime: LocalDateTime? = null
+
     @JoinColumn(name = "GROUP_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     var group: Group? = null
@@ -44,7 +53,7 @@ open class Schedule {
 
     @Column(name = "STATUS", nullable = false)
     @NotNull
-    private var status: Int? = null
+    var status: Int? = null
 
     @JoinColumn(name = "TOPIC_ID")
     @ManyToOne(fetch = FetchType.LAZY)

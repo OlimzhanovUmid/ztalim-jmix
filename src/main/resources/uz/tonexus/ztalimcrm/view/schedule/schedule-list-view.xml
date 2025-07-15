@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://scheduleListView.title"
+      focusComponent="schedulesDataGrid">
+    <data>
+        <collection id="schedulesDc"
+                    class="uz.tonexus.ztalimcrm.entity.Schedule">
+            <fetchPlan extends="_base">
+                <property name="group" fetchPlan="_base"/>
+                <property name="room" fetchPlan="_instance_name">
+                    <property name="capacity"/>
+                </property>
+            </fetchPlan>
+            <loader id="schedulesDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from Schedule e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="schedulesDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="createButton" action="schedulesDataGrid.createAction"/>
+            <button id="editButton" action="schedulesDataGrid.editAction"/>
+            <button id="removeButton" action="schedulesDataGrid.removeAction"/>
+            <simplePagination id="pagination" dataLoader="schedulesDl"/>
+        </hbox>
+        <dataGrid id="schedulesDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="schedulesDc"
+                  columnReorderingAllowed="true"
+                  selectionMode="MULTI">
+            <actions>
+                <action id="createAction" type="list_create"/>
+                <action id="editAction" type="list_edit"/>
+                <action id="removeAction" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="startTime"/>
+                <column property="endTime"/>
+                <column property="group"/>
+                <column property="teacher"/>
+                <column property="room"/>
+                <column property="status"/>
+                <column property="topic"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectButton" action="selectAction"/>
+            <button id="discardButton" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

@@ -18,8 +18,7 @@ import io.jmix.securityflowui.authentication.LoginViewSupport
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
-
-import java.util.Locale
+import java.util.*
 
 @Route(value = "login")
 @ViewController(id = "LoginView")
@@ -56,9 +55,11 @@ open class LoginView : StandardView(), LocaleChangeObserver {
     }
 
     private fun initLocales() {
-        val locales: MutableMap<Locale, String> =
-                coreProperties.availableLocales.associateByTo(
-                        mutableMapOf(), { it }, messageTools::getLocaleDisplayName)
+        val locales: MutableMap<Locale, String> = coreProperties.availableLocales.associateByTo(
+            destination = mutableMapOf(),
+            keySelector = { it },
+            valueTransform = messageTools::getLocaleDisplayName
+        )
 
         ComponentUtils.setItemsMap(login, locales);
 
@@ -79,9 +80,9 @@ open class LoginView : StandardView(), LocaleChangeObserver {
     fun onLogin(event: LoginEvent) {
         try {
             loginViewSupport.authenticate(
-                    AuthDetails.of(event.username, event.password)
-                            .withLocale(login.selectedLocale)
-                            .withRememberMe(login.isRememberMe)
+                AuthDetails.of(event.username, event.password)
+                    .withLocale(login.selectedLocale)
+                    .withRememberMe(login.isRememberMe)
             )
         } catch (e: Exception) {
             log.warn("Login failed for user '{}': {}", event.username, e.toString())
