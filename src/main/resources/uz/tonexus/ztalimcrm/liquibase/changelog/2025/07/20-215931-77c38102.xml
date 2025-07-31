@@ -6,17 +6,10 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
         objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
     <changeSet id="1" author="ZTalimCRM">
-        <addColumn tableName="SCHEDULE">
-            <column name="END_TIME" type="DATETIME"/>
+        <addColumn tableName="LESSON_SCHEDULE">
+            <column name="STATUS" type="INT"/>
         </addColumn>
 
-        <addNotNullConstraint columnName="END_TIME" defaultNullValue="now" tableName="SCHEDULE"/>
-    </changeSet>
-    <changeSet id="2" author="ZTalimCRM">
-        <addColumn tableName="SCHEDULE">
-            <column name="START_TIME" type="DATETIME"/>
-        </addColumn>
-
-        <addNotNullConstraint columnName="START_TIME" defaultNullValue="now" tableName="SCHEDULE"/>
+        <addNotNullConstraint columnName="STATUS" defaultNullValue="0" tableName="LESSON_SCHEDULE"/>
     </changeSet>
 </databaseChangeLog>

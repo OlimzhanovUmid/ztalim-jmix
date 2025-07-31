@@ -4,7 +4,7 @@
       focusComponent="form">
     <data>
         <instance id="scheduleDc"
-                  class="uz.tonexus.ztalimcrm.entity.Schedule">
+                  class="uz.tonexus.ztalimcrm.entity.LessonSchedule">
             <fetchPlan extends="_base">
                 <property name="group" fetchPlan="_base"/>
                 <property name="room" fetchPlan="_instance_name">

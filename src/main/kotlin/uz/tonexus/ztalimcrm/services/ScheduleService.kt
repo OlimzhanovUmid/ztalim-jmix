@@ -4,7 +4,7 @@ import io.jmix.core.DataManager
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import uz.tonexus.ztalimcrm.entity.Group
-import uz.tonexus.ztalimcrm.entity.Schedule
+import uz.tonexus.ztalimcrm.entity.LessonSchedule
 import uz.tonexus.ztalimcrm.entity.ScheduleStatus
 import uz.tonexus.ztalimcrm.entity.StudyRoom
 import uz.tonexus.ztalimcrm.entity.Topic
@@ -25,25 +25,25 @@ class ScheduleService {
         startTime: LocalDateTime,
         endTime: LocalDateTime,
         topic: Topic? = null
-    ): Schedule {
+    ): LessonSchedule {
         // Проверка конфликтов
         validateScheduleConflicts(teacher, room, startTime, endTime)
 
-        val schedule = dataManager.create(Schedule::class.java)
-        schedule.group = group
-        schedule.teacher = teacher
-        schedule.room = room
-        schedule.startTime = startTime
-        schedule.endTime = endTime
-        schedule.topic = topic
-        schedule.status = ScheduleStatus.SCHEDULED.id
+        val lessonSchedule = dataManager.create(LessonSchedule::class.java)
+        lessonSchedule.group = group
+        lessonSchedule.teacher = teacher
+        lessonSchedule.room = room
+        lessonSchedule.startTime = startTime
+        lessonSchedule.endTime = endTime
+        lessonSchedule.topic = topic
+        lessonSchedule.status = ScheduleStatus.SCHEDULED.id
 
-        return dataManager.save(schedule)
+        return dataManager.save(lessonSchedule)
     }
 
-    fun getScheduleForWeek(startDate: LocalDate): List<Schedule> {
+    fun getScheduleForWeek(startDate: LocalDate): List<LessonSchedule> {
         val endDate = startDate.plusDays(6)
-        return dataManager.load(Schedule::class.java)
+        return dataManager.load(LessonSchedule::class.java)
             .query("select s from Schedule s where s.startTime >= :start and s.startTime <= :end")
             .parameter("start", startDate.atStartOfDay())
             .parameter("end", endDate.atTime(23, 59, 59))
@@ -57,7 +57,7 @@ class ScheduleService {
         endTime: LocalDateTime
     ) {
         // Проверка занятости преподавателя
-        val teacherConflicts = dataManager.load(Schedule::class.java)
+        val teacherConflicts = dataManager.load(LessonSchedule::class.java)
             .query("select s from Schedule s where s.teacher = :teacher and " +
                     "((s.startTime <= :start and s.endTime > :start) or " +
                     "(s.startTime < :end and s.endTime >= :end) or " +
@@ -72,7 +72,7 @@ class ScheduleService {
         }
 
         // Аналогичная проверка для аудитории
-        val roomConflicts = dataManager.load(Schedule::class.java)
+        val roomConflicts = dataManager.load(LessonSchedule::class.java)
             .query("select s from Schedule s where s.room = :room and " +
                     "((s.startTime <= :start and s.endTime > :start) or " +
                     "(s.startTime < :end and s.endTime >= :end) or " +

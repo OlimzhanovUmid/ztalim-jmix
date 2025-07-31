@@ -16,8 +16,8 @@
         </navigationBar>
         <drawerLayout>
             <section id="section" classNames="jmix-main-view-section">
-                <anchor href=".">
-                    <image resource="static/images/logo.png"/>
+                <anchor href="." alignSelf="CENTER">
+                    <image resource="static/images/logo.png" alignSelf="CENTER"/>
                 </anchor>
                 <nav id="navigation"
                      classNames="jmix-main-view-navigation"

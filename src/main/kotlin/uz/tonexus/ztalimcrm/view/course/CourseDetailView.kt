@@ -12,5 +12,4 @@ import uz.tonexus.ztalimcrm.view.main.MainView
 @ViewController(id = "Course.detail")
 @ViewDescriptor(path = "course-detail-view.xml")
 @EditedEntityContainer("courseDc")
-class CourseDetailView : StandardDetailView<Course>() {
-}
+class CourseDetailView : StandardDetailView<Course>()

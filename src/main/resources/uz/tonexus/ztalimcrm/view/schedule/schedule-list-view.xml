@@ -5,7 +5,7 @@
       focusComponent="schedulesDataGrid">
     <data>
         <collection id="schedulesDc"
-                    class="uz.tonexus.ztalimcrm.entity.Schedule">
+                    class="uz.tonexus.ztalimcrm.entity.LessonSchedule">
             <fetchPlan extends="_base">
                 <property name="group" fetchPlan="_base"/>
                 <property name="room" fetchPlan="_instance_name">
@@ -14,7 +14,7 @@
             </fetchPlan>
             <loader id="schedulesDl" readOnly="true">
                 <query>
-                    <![CDATA[select e from Schedule e]]>
+                    <![CDATA[select e from LessonSchedule e]]>
                 </query>
             </loader>
         </collection>

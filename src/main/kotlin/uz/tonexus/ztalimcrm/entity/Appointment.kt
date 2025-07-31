@@ -13,51 +13,52 @@ import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedBy
 import org.springframework.data.annotation.LastModifiedDate
-import java.time.LocalDateTime
+import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.*
 
 @JmixEntity
-@Table(name = "SCHEDULE", indexes = [
-    Index(name = "IDX_SCHEDULE_GROUP", columnList = "GROUP_ID"),
-    Index(name = "IDX_SCHEDULE_TEACHER", columnList = "TEACHER_ID"),
-    Index(name = "IDX_SCHEDULE_ROOM", columnList = "ROOM_ID"),
-    Index(name = "IDX_SCHEDULE_TOPIC", columnList = "TOPIC_ID")
+@Table(name = "APPOINTMENT", indexes = [
+    Index(name = "IDX_APPOINTMENT_PARENT", columnList = "PARENT_ID")
 ])
 @Entity
-open class Schedule {
+open class Appointment {
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
     @Id
     var id: UUID? = null
 
-    @Column(name = "START_TIME", nullable = false)
+    @Column(name = "FIRST_NAME", nullable = false)
     @NotNull
-    var startTime: LocalDateTime? = null
+    var firstName: String? = null
 
-    @Column(name = "END_TIME", nullable = false)
+    @Column(name = "LAST_NAME", nullable = false)
     @NotNull
-    var endTime: LocalDateTime? = null
+    var lastName: String? = null
 
-    @JoinColumn(name = "GROUP_ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    var group: Group? = null
-
-    @JoinColumn(name = "TEACHER_ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    var teacher: User? = null
-
-    @JoinColumn(name = "ROOM_ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    var room: StudyRoom? = null
-
-    @Column(name = "STATUS", nullable = false)
+    @Column(name = "PHONE_NUMBER", nullable = false)
     @NotNull
-    var status: Int? = null
+    var phoneNumber: String? = null
 
-    @JoinColumn(name = "TOPIC_ID")
+    @Column(name = "GENDER", nullable = false)
+    @NotNull
+    private var gender: Int? = null
+
+    @Column(name = "DATE_OF_BIRTH", nullable = false)
+    @NotNull
+    var dateOfBirth: LocalDate? = null
+
+    @JoinColumn(name = "PARENT_ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    var topic: Topic? = null
+    var parent: Parent? = null
+
+    @Column(name = "PREFERRED_DAYS", nullable = false)
+    @NotNull
+    private var preferredDays: Int? = null
+
+    @Column(name = "PREFERRED_TIME", nullable = false)
+    @NotNull
+    private var preferredTime: Int? = null
 
     @CreatedBy
     @Column(name = "CREATED_BY")
@@ -83,18 +84,26 @@ open class Schedule {
     @Column(name = "DELETED_DATE")
     var deletedDate: OffsetDateTime? = null
 
-    @Column(name = "VERSION", nullable = false)
-    @Version
-    var version: Int? = null
+    fun getPreferredTime(): TimeSlot? = preferredTime?.let { TimeSlot.fromId(it) }
 
-    fun getStatus(): ScheduleStatus? = status?.let { ScheduleStatus.fromId(it) }
+    fun setPreferredTime(preferredTime: TimeSlot?) {
+        this.preferredTime = preferredTime?.id
+    }
 
-    fun setStatus(status: ScheduleStatus?) {
-        this.status = status?.id
+    fun getPreferredDays(): ClassDays? = preferredDays?.let { ClassDays.fromId(it) }
+
+    fun setPreferredDays(preferredDays: ClassDays?) {
+        this.preferredDays = preferredDays?.id
+    }
+
+    fun getGender(): Gender? = gender?.let { Gender.fromId(it) }
+
+    fun setGender(gender: Gender?) {
+        this.gender = gender?.id
     }
 
     @InstanceName
-    @DependsOnProperties("room", "teacher", "topic")
+    @DependsOnProperties("firstName", "lastName")
     fun getInstanceName(metadataTools: MetadataTools): String =
-        "${metadataTools.format(room?.name)} ${metadataTools.format(teacher?.firstName)} ${metadataTools.format(topic?.name)}".trim()
+        "${metadataTools.format(firstName)} ${metadataTools.format(lastName)}".trim()
 }

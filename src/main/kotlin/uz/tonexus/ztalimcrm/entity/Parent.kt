@@ -5,7 +5,10 @@ import io.jmix.core.annotation.DeletedDate
 import io.jmix.core.entity.annotation.JmixGeneratedValue
 import io.jmix.core.metamodel.annotation.InstanceName
 import io.jmix.core.metamodel.annotation.JmixEntity
-import jakarta.persistence.*
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.Id
+import jakarta.persistence.Table
 import jakarta.validation.constraints.NotNull
 import java.time.OffsetDateTime
 import java.util.*
@@ -27,9 +30,6 @@ open class Parent {
     @Column(name = "PHONE_NUMBER", nullable = false)
     @NotNull
     var phoneNumber: String? = null
-
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "parent")
-    var student: Student? = null
 
     @DeletedBy
     @Column(name = "DELETED_BY")

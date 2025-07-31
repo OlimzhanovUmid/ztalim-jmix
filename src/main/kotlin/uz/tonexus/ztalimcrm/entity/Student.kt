@@ -44,11 +44,14 @@ open class Student {
     @NotNull
     var dateOfBirth: LocalDate? = null
 
+    @ManyToOne(fetch = FetchType.LAZY)
     @OnDeleteInverse(DeletePolicy.CASCADE)
-    @JoinColumn(name = "PARENT_ID", nullable = false)
-    @NotNull
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "PARENT_ID")
     var parent: Parent? = null
+
+    @Column(name = "GENDER", nullable = false)
+    @NotNull
+    private var gender: Int? = null
 
     @Column(name = "STATUS", nullable = false)
     @NotNull
@@ -90,6 +93,12 @@ open class Student {
     @OrderBy("name")
     @ManyToMany
     var groups: MutableList<Group> = NotInstantiatedList()
+
+    fun getGender(): Gender? = gender?.let { Gender.fromId(it) }
+
+    fun setGender(gender: Gender?) {
+        this.gender = gender?.id
+    }
 
     fun getStatus(): StudentStatus? = status?.let { StudentStatus.fromId(it) }
 

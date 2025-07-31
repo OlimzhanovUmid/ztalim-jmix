@@ -3,8 +3,9 @@
       focusComponent="login"
       title="msg://LoginView.title">
     <layout justifyContent="CENTER" alignItems="CENTER" classNames="jmix-login-main-layout bg-base">
-        <vbox classNames="bg-base shadow-m rounded-m" wrap="true">
-            <image resource="static/images/logo.png" classNames="jmix-login-logo" alignSelf="CENTER"/>
+        <vbox classNames="bg-base shadow-m rounded-m" wrap="true"
+              alignItems="CENTER">
+            <image resource="static/images/logo.png" alignSelf="CENTER"/>
             <loginForm id="login"
                        rememberMeVisible="false" localesVisible="false">
                 <form title="msg://loginForm.headerTitle"
