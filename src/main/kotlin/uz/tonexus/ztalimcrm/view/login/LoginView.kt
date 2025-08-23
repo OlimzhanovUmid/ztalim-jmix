@@ -40,16 +40,17 @@ open class LoginView : StandardView(), LocaleChangeObserver {
     @ViewComponent
     private lateinit var messageBundle: MessageBundle
 
-    @Value("\${ui.login.defaultUsername:}")
+    @Value($$"${ui.login.defaultUsername:}")
     private lateinit var defaultUsername: String
 
-    @Value("\${ui.login.defaultPassword:}")
+    @Value($$"${ui.login.defaultPassword:}")
     private lateinit var defaultPassword: String
 
     private val log = LoggerFactory.getLogger(LoginView::class.java)
 
     @Subscribe
     fun onInit(event: InitEvent) {
+
         initLocales()
         initDefaultCredentials()
     }
@@ -90,26 +91,26 @@ open class LoginView : StandardView(), LocaleChangeObserver {
         }
     }
 
-    override fun localeChange(event: LocaleChangeEvent) {
-        UI.getCurrent().page.setTitle(messageBundle.getMessage("LoginView.title"))
+    override fun localeChange(event: LocaleChangeEvent) = with(messageBundle) {
+        UI.getCurrent().page.setTitle(getMessage("LoginView.title"))
 
-        val loginI18n: JmixLoginI18n = JmixLoginI18n.createDefault()
+        val loginI18n: JmixLoginI18n = JmixLoginI18n.createDefault().apply {
+            form = JmixLoginI18n.JmixForm().apply {
+                title = getMessage("loginForm.headerTitle")
+                username = getMessage("loginForm.username")
+                password = getMessage("loginForm.password")
+                submit = getMessage("loginForm.submit")
+                forgotPassword = getMessage("loginForm.forgotPassword")
+                rememberMe = getMessage("loginForm.rememberMe")
+            }
 
-        val form: JmixLoginI18n.JmixForm = JmixLoginI18n.JmixForm()
-        form.title = messageBundle.getMessage("loginForm.headerTitle")
-        form.username = messageBundle.getMessage("loginForm.username")
-        form.password = messageBundle.getMessage("loginForm.password")
-        form.submit = messageBundle.getMessage("loginForm.submit")
-        form.forgotPassword = messageBundle.getMessage("loginForm.forgotPassword")
-        form.rememberMe = messageBundle.getMessage("loginForm.rememberMe")
-        loginI18n.form = form
-
-        val errorMessage: LoginI18n.ErrorMessage = LoginI18n.ErrorMessage()
-        errorMessage.title = messageBundle.getMessage("loginForm.errorTitle")
-        errorMessage.message = messageBundle.getMessage("loginForm.badCredentials")
-        errorMessage.username = messageBundle.getMessage("loginForm.errorUsername")
-        errorMessage.password = messageBundle.getMessage("loginForm.errorPassword")
-        loginI18n.errorMessage = errorMessage
+            errorMessage = LoginI18n.ErrorMessage().apply {
+                title = getMessage("loginForm.errorTitle")
+                message = getMessage("loginForm.badCredentials")
+                username = getMessage("loginForm.errorUsername")
+                password = getMessage("loginForm.errorPassword")
+            }
+        }
 
         login.setI18n(loginI18n)
     }
