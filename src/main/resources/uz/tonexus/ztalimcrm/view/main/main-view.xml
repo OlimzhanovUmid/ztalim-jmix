@@ -17,7 +17,7 @@
         <drawerLayout>
             <section id="section" classNames="jmix-main-view-section">
                 <anchor href="." alignSelf="CENTER">
-                    <image resource="static/images/logo.png" alignSelf="CENTER"/>
+                    <image resource="static/images/logo.png" alignSelf="CENTER" maxWidth="95%" maxHeight="95%"/>
                 </anchor>
                 <nav id="navigation"
                      classNames="jmix-main-view-navigation"
