@@ -1,9 +1,9 @@
 package uz.tonexus.ztalimcrm.security
 
-import uz.tonexus.ztalimcrm.entity.User
 import io.jmix.securitydata.user.AbstractDatabaseUserRepository
 import org.springframework.context.annotation.Primary
 import org.springframework.stereotype.Component
+import uz.tonexus.ztalimcrm.entity.User
 
 @Primary
 @Component("UserRepository")
@@ -13,8 +13,8 @@ class DatabaseUserRepository : AbstractDatabaseUserRepository<User>() {
 
     override fun initSystemUser(systemUser: User) {
         val authorities = grantedAuthoritiesBuilder
-                .addResourceRole(FullAccessRole.CODE)
-                .build()
+            .addResourceRole(FullAccessRole.CODE)
+            .build()
         systemUser.authorities = authorities
     }
 

@@ -16,6 +16,4 @@ import org.springframework.security.web.SecurityFilterChain
  * @see io.jmix.securityflowui.security.FlowuiVaadinWebSecurity
  */
 @Configuration
-open class ZTalimCRMSecurityConfiguration {
-
-}
+open class ZTalimCRMSecurityConfiguration
