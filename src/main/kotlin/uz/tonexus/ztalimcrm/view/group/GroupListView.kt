@@ -11,5 +11,4 @@ import uz.tonexus.ztalimcrm.view.main.MainView
 @ViewDescriptor(path = "group-list-view.xml")
 @LookupComponent("groupsDataGrid")
 @DialogMode(width = "64em")
-class GroupListView : StandardListView<Group>() {
-}
+class GroupListView : StandardListView<Group>()

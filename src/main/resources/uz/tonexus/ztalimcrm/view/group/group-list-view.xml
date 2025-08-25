@@ -33,7 +33,6 @@
         <hbox id="buttonsPanel" classNames="buttons-panel">
             <button id="createButton" action="groupsDataGrid.createAction"/>
             <button id="editButton" action="groupsDataGrid.editAction"/>
-            <button id="refreshButton" action="groupsDataGrid.refreshAction"/>
             <button id="removeButton" action="groupsDataGrid.removeAction"/>
             <simplePagination id="pagination" dataLoader="groupsDl"/>
         </hbox>
@@ -44,9 +43,16 @@
                   columnReorderingAllowed="true"
                   selectionMode="MULTI">
             <actions>
-                <action id="createAction" type="list_create"/>
-                <action id="editAction" type="list_edit"/>
-                <action id="refreshAction" type="list_refresh"/>
+                <action id="createAction" type="list_create">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="editAction" type="list_edit">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
                 <action id="removeAction" type="list_remove"/>
             </actions>
             <columns resizable="true">

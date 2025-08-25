@@ -1,6 +1,7 @@
 package uz.tonexus.ztalimcrm.view.course
 
 import com.vaadin.flow.router.Route
+import io.jmix.flowui.view.DialogMode
 import io.jmix.flowui.view.EditedEntityContainer
 import io.jmix.flowui.view.StandardDetailView
 import io.jmix.flowui.view.ViewController
@@ -12,4 +13,5 @@ import uz.tonexus.ztalimcrm.view.main.MainView
 @ViewController(id = "Course.detail")
 @ViewDescriptor(path = "course-detail-view.xml")
 @EditedEntityContainer("courseDc")
+@DialogMode(width = "40em")
 class CourseDetailView : StandardDetailView<Course>()

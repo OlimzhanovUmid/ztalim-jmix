@@ -1,6 +1,7 @@
 package uz.tonexus.ztalimcrm.view.schedule
 
 import com.vaadin.flow.router.Route
+import io.jmix.flowui.view.DialogMode
 import io.jmix.flowui.view.EditedEntityContainer
 import io.jmix.flowui.view.StandardDetailView
 import io.jmix.flowui.view.ViewController
@@ -12,5 +13,5 @@ import uz.tonexus.ztalimcrm.view.main.MainView
 @ViewController(id = "Schedule.detail")
 @ViewDescriptor(path = "schedule-detail-view.xml")
 @EditedEntityContainer("scheduleDc")
-class ScheduleDetailView : StandardDetailView<LessonSchedule>() {
-}
+@DialogMode(width = "40em")
+class ScheduleDetailView : StandardDetailView<LessonSchedule>()

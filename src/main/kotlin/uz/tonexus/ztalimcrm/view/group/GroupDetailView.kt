@@ -1,6 +1,7 @@
 package uz.tonexus.ztalimcrm.view.group
 
 import com.vaadin.flow.router.Route
+import io.jmix.flowui.view.DialogMode
 import io.jmix.flowui.view.EditedEntityContainer
 import io.jmix.flowui.view.StandardDetailView
 import io.jmix.flowui.view.ViewController
@@ -12,5 +13,5 @@ import uz.tonexus.ztalimcrm.view.main.MainView
 @ViewController(id = "Group_.detail")
 @ViewDescriptor(path = "group-detail-view.xml")
 @EditedEntityContainer("groupDc")
-class GroupDetailView : StandardDetailView<Group>() {
-}
+@DialogMode(width = "40em")
+class GroupDetailView : StandardDetailView<Group>()
