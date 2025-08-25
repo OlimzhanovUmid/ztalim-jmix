@@ -5,7 +5,6 @@ import io.jmix.core.MetadataTools
 import io.jmix.core.annotation.DeletedBy
 import io.jmix.core.annotation.DeletedDate
 import io.jmix.core.entity.annotation.JmixGeneratedValue
-import io.jmix.core.entity.annotation.OnDelete
 import io.jmix.core.entity.annotation.OnDeleteInverse
 import io.jmix.core.metamodel.annotation.DependsOnProperties
 import io.jmix.core.metamodel.annotation.InstanceName
@@ -23,7 +22,7 @@ import java.util.*
 
 @JmixEntity
 @Table(name = "STUDENT", indexes = [
-    Index(name = "IDX_STUDENT_PARENT", columnList = "PARENT_ID")
+    Index(name = "IDX_STUDENT_TEACHER", columnList = "TEACHER_ID")
 ])
 @Entity
 open class Student {
@@ -31,6 +30,11 @@ open class Student {
     @Column(name = "ID", nullable = false)
     @Id
     var id: UUID? = null
+
+    @OnDeleteInverse(DeletePolicy.UNLINK)
+    @JoinColumn(name = "TEACHER_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    var teacher: User? = null
 
     @Column(name = "FIRST_NAME", nullable = false, length = 50)
     @NotNull
@@ -44,10 +48,13 @@ open class Student {
     @NotNull
     var dateOfBirth: LocalDate? = null
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @OnDeleteInverse(DeletePolicy.CASCADE)
-    @JoinColumn(name = "PARENT_ID")
-    var parent: Parent? = null
+    @Column(name = "PARENT_INFO", nullable = false, length = 500)
+    @NotNull
+    var parentInfo: String? = null
+
+    @Column(name = "IS_ACTIVE", nullable = false)
+    @NotNull
+    var isActive: Boolean? = true
 
     @Column(name = "GENDER", nullable = false)
     @NotNull
@@ -56,10 +63,6 @@ open class Student {
     @Column(name = "STATUS", nullable = false)
     @NotNull
     private var status: Int? = StudentStatus.ACTIVE.id
-
-    @OnDelete(DeletePolicy.CASCADE)
-    @OneToMany(mappedBy = "student")
-    var comment: MutableList<Comment> = NotInstantiatedList()
 
     @CreatedBy
     @Column(name = "CREATED_BY")

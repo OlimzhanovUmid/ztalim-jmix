@@ -6,8 +6,7 @@
         <instance id="studentDc"
                   class="uz.tonexus.ztalimcrm.entity.Student">
             <fetchPlan extends="_base">
-                <property name="parent" fetchPlan="_base"/>
-                <property name="comment" fetchPlan="_base"/>
+                <property name="teacher" fetchPlan="_instance_name"/>
             </fetchPlan>
             <loader id="studentDl"/>
         </instance>
@@ -25,15 +24,18 @@
                 <responsiveStep minWidth="0" columns="1"/>
                 <responsiveStep minWidth="40em" columns="2"/>
             </responsiveSteps>
-            <textField id="firstNameField" property="firstName"/>
-            <textField id="lastNameField" property="lastName"/>
-            <datePicker id="dateOfBirthField" property="dateOfBirth"/>
-            <entityPicker id="parentField" property="parent">
+            <entityPicker id="teacherField" property="teacher">
                 <actions>
                     <action id="entityLookupAction" type="entity_lookup"/>
                     <action id="entityClearAction" type="entity_clear"/>
                 </actions>
             </entityPicker>
+            <textField id="firstNameField" property="firstName"/>
+            <textField id="lastNameField" property="lastName"/>
+            <datePicker id="dateOfBirthField" property="dateOfBirth"/>
+            <textField id="parentInfoField" property="parentInfo"/>
+            <checkbox id="isActiveField" property="isActive"/>
+            <select id="genderField" property="gender"/>
             <select id="statusField" property="status"/>
         </formLayout>
         <hbox id="detailActions">

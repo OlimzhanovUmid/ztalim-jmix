@@ -7,6 +7,7 @@
     <appLayout>
         <navigationBar>
             <header id="header" classNames="jmix-main-view-header">
+                <button id="addAppointmentButton"/>
                 <drawerToggle id="drawerToggle"
                               classNames="jmix-main-view-drawer-toggle"
                               themeNames="contrast"
@@ -16,7 +17,7 @@
         </navigationBar>
         <drawerLayout>
             <section id="section" classNames="jmix-main-view-section">
-                <anchor href="." alignSelf="CENTER">
+                <anchor href="./appointments" alignSelf="CENTER">
                     <image resource="static/images/logo.png" alignSelf="CENTER" maxWidth="95%" maxHeight="95%"/>
                 </anchor>
                 <nav id="navigation"

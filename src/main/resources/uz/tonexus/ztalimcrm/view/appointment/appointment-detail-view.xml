@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <view xmlns="http://jmix.io/schema/flowui/view"
-      title="msg://parentDetailView.title"
+      title="msg://appointmentDetailView.title"
       focusComponent="form">
     <data>
-        <instance id="parentDc"
-                  class="uz.tonexus.ztalimcrm.entity.Parent">
+        <instance id="appointmentDc"
+                  class="uz.tonexus.ztalimcrm.entity.Appointment">
             <fetchPlan extends="_base">
-                <property name="student" fetchPlan="_base"/>
+                <property name="teacher" fetchPlan="_instance_name"/>
             </fetchPlan>
-            <loader id="parentDl"/>
+            <loader id="appointmentDl"/>
         </instance>
     </data>
     <facets>
@@ -19,19 +19,26 @@
         <action id="closeAction" type="detail_close"/>
     </actions>
     <layout>
-        <formLayout id="form" dataContainer="parentDc">
+        <formLayout id="form" dataContainer="appointmentDc">
             <responsiveSteps>
                 <responsiveStep minWidth="0" columns="1"/>
                 <responsiveStep minWidth="40em" columns="2"/>
             </responsiveSteps>
-            <textField id="fullNameField" property="fullName"/>
+            <textField id="firstNameField" property="firstName"/>
+            <textField id="lastNameField" property="lastName"/>
             <textField id="phoneNumberField" property="phoneNumber"/>
-            <entityPicker id="studentField" property="student">
+            <select id="genderField" property="gender"/>
+            <datePicker id="dateOfBirthField" property="dateOfBirth"/>
+            <textField id="parentInfoField" property="parentInfo"/>
+            <select id="preferredDaysField" property="preferredDays"/>
+            <select id="preferredTimeField" property="preferredTime"/>
+            <entityPicker id="teacherField" property="teacher">
                 <actions>
                     <action id="entityLookupAction" type="entity_lookup"/>
                     <action id="entityClearAction" type="entity_clear"/>
                 </actions>
             </entityPicker>
+            <textField id="commentField" property="comment"/>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseButton" action="saveAction"/>

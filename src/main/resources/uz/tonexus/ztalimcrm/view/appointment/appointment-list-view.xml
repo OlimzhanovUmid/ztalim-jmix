@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <view xmlns="http://jmix.io/schema/flowui/view"
       xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
-      title="msg://studyRoomListView.title"
-      focusComponent="studyRoomsDataGrid">
+      title="msg://appointmentListView.title"
+      focusComponent="appointmentsDataGrid">
     <data>
-        <collection id="studyRoomsDc"
-                    class="uz.tonexus.ztalimcrm.entity.StudyRoom">
-            <fetchPlan extends="_base"/>
-            <loader id="studyRoomsDl" readOnly="true">
+        <collection id="appointmentsDc"
+                    class="uz.tonexus.ztalimcrm.entity.Appointment">
+            <fetchPlan extends="_base">
+                <property name="teacher" fetchPlan="_instance_name"/>
+            </fetchPlan>
+            <loader id="appointmentsDl" readOnly="true">
                 <query>
-                    <![CDATA[select e from StudyRoom e]]>
+                    <![CDATA[select e from Appointment e]]>
                 </query>
             </loader>
         </collection>
@@ -27,30 +29,36 @@
     </actions>
     <layout>
         <genericFilter id="genericFilter"
-                       dataLoader="studyRoomsDl">
+                       dataLoader="appointmentsDl">
             <properties include=".*"/>
         </genericFilter>
         <hbox id="buttonsPanel" classNames="buttons-panel">
-            <button id="createButton" action="studyRoomsDataGrid.createAction"/>
-            <button id="editButton" action="studyRoomsDataGrid.editAction"/>
-            <button id="removeButton" action="studyRoomsDataGrid.removeAction"/>
-            <simplePagination id="pagination" dataLoader="studyRoomsDl"/>
+            <button id="createButton" action="appointmentsDataGrid.createAction"/>
+            <button id="editButton" action="appointmentsDataGrid.editAction"/>
+            <button id="removeButton" action="appointmentsDataGrid.removeAction"/>
+            <simplePagination id="pagination" dataLoader="appointmentsDl"/>
         </hbox>
-        <dataGrid id="studyRoomsDataGrid"
+        <dataGrid id="appointmentsDataGrid"
                   width="100%"
                   minHeight="20em"
-                  dataContainer="studyRoomsDc"
-                  columnReorderingAllowed="true"
-                  selectionMode="MULTI">
+                  dataContainer="appointmentsDc"
+                  columnReorderingAllowed="true">
             <actions>
                 <action id="createAction" type="list_create"/>
                 <action id="editAction" type="list_edit"/>
                 <action id="removeAction" type="list_remove"/>
             </actions>
             <columns resizable="true">
-                <column property="name"/>
-                <column property="capacity"/>
-                <column property="isActive"/>
+                <column property="firstName"/>
+                <column property="lastName"/>
+                <column property="phoneNumber"/>
+                <column property="gender"/>
+                <column property="dateOfBirth"/>
+                <column property="parentInfo"/>
+                <column property="preferredDays"/>
+                <column property="preferredTime"/>
+                <column property="teacher"/>
+                <column property="comment"/>
                 <editorActionsColumn>
                     <editButton text="Edit" icon="PENCIL"/>
                     <saveButton icon="CHECK" themeNames="success"/>

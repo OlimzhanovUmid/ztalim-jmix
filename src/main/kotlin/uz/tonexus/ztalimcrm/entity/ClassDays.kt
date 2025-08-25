@@ -4,7 +4,8 @@ import io.jmix.core.metamodel.datatype.EnumClass
 
 enum class ClassDays(private val id: Int) : EnumClass<Int> {
     MondayWednesdayFriday(0),
-    TuesdayThursdaySaturday(1),;
+    TuesdayThursdaySaturday(1),
+    EveryDay(2);
 
     override fun getId() = id
 

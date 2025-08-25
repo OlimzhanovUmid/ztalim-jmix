@@ -7,8 +7,7 @@
         <collection id="studentsDc"
                     class="uz.tonexus.ztalimcrm.entity.Student">
             <fetchPlan extends="_base">
-                <property name="parent" fetchPlan="_base"/>
-                <property name="comment" fetchPlan="_base"/>
+                <property name="teacher" fetchPlan="_instance_name"/>
             </fetchPlan>
             <loader id="studentsDl" readOnly="true">
                 <query>
@@ -43,19 +42,26 @@
                   width="100%"
                   minHeight="20em"
                   dataContainer="studentsDc"
-                  columnReorderingAllowed="true"
-                  selectionMode="MULTI">
+                  columnReorderingAllowed="true">
             <actions>
                 <action id="createAction" type="list_create"/>
                 <action id="editAction" type="list_edit"/>
                 <action id="removeAction" type="list_remove"/>
             </actions>
             <columns resizable="true">
+                <column property="teacher"/>
                 <column property="firstName"/>
                 <column property="lastName"/>
                 <column property="dateOfBirth"/>
-                <column property="parent"/>
+                <column property="parentInfo"/>
+                <column property="isActive"/>
+                <column property="gender"/>
                 <column property="status"/>
+                <editorActionsColumn>
+                    <editButton text="Edit" icon="PENCIL"/>
+                    <saveButton icon="CHECK" themeNames="success"/>
+                    <cancelButton icon="CLOSE" themeNames="error"/>
+                </editorActionsColumn>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

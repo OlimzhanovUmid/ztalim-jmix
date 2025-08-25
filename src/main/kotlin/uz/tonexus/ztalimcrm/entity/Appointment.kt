@@ -1,9 +1,11 @@
 package uz.tonexus.ztalimcrm.entity
 
+import io.jmix.core.DeletePolicy
 import io.jmix.core.MetadataTools
 import io.jmix.core.annotation.DeletedBy
 import io.jmix.core.annotation.DeletedDate
 import io.jmix.core.entity.annotation.JmixGeneratedValue
+import io.jmix.core.entity.annotation.OnDeleteInverse
 import io.jmix.core.metamodel.annotation.DependsOnProperties
 import io.jmix.core.metamodel.annotation.InstanceName
 import io.jmix.core.metamodel.annotation.JmixEntity
@@ -18,9 +20,7 @@ import java.time.OffsetDateTime
 import java.util.*
 
 @JmixEntity
-@Table(name = "APPOINTMENT", indexes = [
-    Index(name = "IDX_APPOINTMENT_PARENT", columnList = "PARENT_ID")
-])
+@Table(name = "APPOINTMENT")
 @Entity
 open class Appointment {
     @JmixGeneratedValue
@@ -48,9 +48,9 @@ open class Appointment {
     @NotNull
     var dateOfBirth: LocalDate? = null
 
-    @JoinColumn(name = "PARENT_ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    var parent: Parent? = null
+    @Column(name = "PARENT_INFO", nullable = false, length = 500)
+    @NotNull
+    var parentInfo: String? = null
 
     @Column(name = "PREFERRED_DAYS", nullable = false)
     @NotNull
@@ -59,6 +59,14 @@ open class Appointment {
     @Column(name = "PREFERRED_TIME", nullable = false)
     @NotNull
     private var preferredTime: Int? = null
+
+    @OnDeleteInverse(DeletePolicy.UNLINK)
+    @JoinColumn(name = "TEACHER_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    var teacher: User? = null
+
+    @Column(name = "COMMENT_", length = 3000)
+    var comment: String? = null
 
     @CreatedBy
     @Column(name = "CREATED_BY")

@@ -60,6 +60,11 @@
                 <column property="room"/>
                 <column property="status"/>
                 <column property="topic"/>
+                <editorActionsColumn>
+                    <editButton text="Edit" icon="PENCIL"/>
+                    <saveButton icon="CHECK" themeNames="success"/>
+                    <cancelButton icon="CLOSE" themeNames="error"/>
+                </editorActionsColumn>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

@@ -15,9 +15,12 @@ import java.util.*
 
 @JmixEntity
 @Entity
-@Table(name = "USER_", indexes = [
-    Index(name = "IDX_USER__ON_USERNAME", columnList = "USERNAME", unique = true)
-])
+@Table(
+    name = "USER_",
+    indexes = [
+        Index(name = "IDX_USER__ON_USERNAME", columnList = "USERNAME", unique = true)
+    ]
+)
 open class User : JmixUserDetails, HasTimeZone {
 
     @Id
@@ -64,7 +67,7 @@ open class User : JmixUserDetails, HasTimeZone {
     override fun getUsername(): String? = username
 
     override fun getAuthorities(): Collection<GrantedAuthority?> =
-            userAuthorities ?: emptyList()
+        userAuthorities ?: emptyList()
 
     override fun setAuthorities(authorities: Collection<GrantedAuthority?>) {
         this.userAuthorities = authorities
