@@ -67,6 +67,7 @@
                 <column property="preferredTime"/>
                 <column property="teacher"/>
                 <column property="comment"/>
+                <column property="appointmentStatus"/>
                 <editorActionsColumn>
                     <editButton text="Edit" icon="PENCIL"/>
                     <saveButton icon="CHECK" themeNames="success"/>

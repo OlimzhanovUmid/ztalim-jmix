@@ -39,6 +39,7 @@
                 </actions>
             </entityPicker>
             <textField id="commentField" property="comment"/>
+            <select id="appointmentStatusField" property="appointmentStatus"/>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseButton" action="saveAction"/>
