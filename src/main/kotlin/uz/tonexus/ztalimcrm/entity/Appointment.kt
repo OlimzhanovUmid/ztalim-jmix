@@ -76,6 +76,10 @@ open class Appointment {
     @Column(name = "CREATED_DATE")
     var createdDate: OffsetDateTime? = null
 
+    @Column(name = "APPOINTMENT_STATUS", nullable = false)
+    @NotNull
+    private var appointmentStatus: Int? = AppointmentStatus.NotProcessed.id
+
     @LastModifiedBy
     @Column(name = "LAST_MODIFIED_BY")
     var lastModifiedBy: String? = null
@@ -91,6 +95,12 @@ open class Appointment {
     @DeletedDate
     @Column(name = "DELETED_DATE")
     var deletedDate: OffsetDateTime? = null
+
+    fun getAppointmentStatus(): AppointmentStatus? = appointmentStatus?.let { AppointmentStatus.fromId(it) }
+
+    fun setAppointmentStatus(appointmentStatus: AppointmentStatus?) {
+        this.appointmentStatus = appointmentStatus?.id
+    }
 
     fun getPreferredTime(): TimeSlot? = preferredTime?.let { TimeSlot.fromId(it) }
 
