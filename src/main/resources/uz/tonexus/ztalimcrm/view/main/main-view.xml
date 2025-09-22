@@ -7,12 +7,12 @@
     <appLayout>
         <navigationBar>
             <header id="header" classNames="jmix-main-view-header">
-                <button id="addAppointmentButton"/>
                 <drawerToggle id="drawerToggle"
                               classNames="jmix-main-view-drawer-toggle"
                               themeNames="contrast"
                               ariaLabel="msg://drawerToggle.ariaLabel"/>
                 <h1 id="viewTitle" classNames="jmix-main-view-title"/>
+                <button id="addAppointmentButton" text="msg://addAppointmentButton.text"/>
             </header>
         </navigationBar>
         <drawerLayout>
