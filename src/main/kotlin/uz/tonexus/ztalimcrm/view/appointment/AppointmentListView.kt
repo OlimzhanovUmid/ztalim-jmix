@@ -39,13 +39,15 @@ class AppointmentListView : StandardListView<Appointment>() {
                     withLabel(messageBundle.getMessage("appointmentStatus"))
                     withDefaultValue(event.item.getAppointmentStatus())
                 },
-                stringParameter("appointmentComment")
+                stringParameter("appointmentComment").withLabel(messageBundle.getMessage("appointmentComment"))
             )
             withActions(DialogActions.OK_CANCEL)
             withCloseListener { closeEvent ->
                 if (closeEvent.isOk) {
                     (closeEvent.values["appointmentStatus"] as? AppointmentStatus)?.let { status ->
-                        appointmentRepository.updateStatus(event.item, status)
+                        appointmentRepository.save(
+                            event.item.apply { setAppointmentStatus(status) }
+                        )
                     }
                 }
             }
