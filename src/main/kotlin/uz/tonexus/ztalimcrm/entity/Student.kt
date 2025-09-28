@@ -5,6 +5,7 @@ import io.jmix.core.MetadataTools
 import io.jmix.core.annotation.DeletedBy
 import io.jmix.core.annotation.DeletedDate
 import io.jmix.core.entity.annotation.JmixGeneratedValue
+import io.jmix.core.entity.annotation.OnDelete
 import io.jmix.core.entity.annotation.OnDeleteInverse
 import io.jmix.core.metamodel.annotation.DependsOnProperties
 import io.jmix.core.metamodel.annotation.InstanceName
@@ -96,6 +97,10 @@ open class Student {
     @OrderBy("name")
     @ManyToMany
     var groups: MutableList<Group> = NotInstantiatedList()
+
+    @OnDelete(DeletePolicy.CASCADE)
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "student")
+    var enrollment: Enrollment? = null
 
     fun getGender(): Gender? = gender?.let { Gender.fromId(it) }
 

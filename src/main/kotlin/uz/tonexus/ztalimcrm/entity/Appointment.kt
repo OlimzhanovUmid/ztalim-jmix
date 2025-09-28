@@ -102,6 +102,12 @@ open class Appointment {
         this.appointmentStatus = appointmentStatus?.id
     }
 
+    @OneToOne(mappedBy = "appointment", fetch = FetchType.LAZY)
+    var enrollment: Enrollment? = null
+
+    // Метод для проверки, создана ли запись на курс
+    fun hasEnrollment(): Boolean = enrollment != null
+
     fun getPreferredTime(): TimeSlot? = preferredTime?.let { TimeSlot.fromId(it) }
 
     fun setPreferredTime(preferredTime: TimeSlot?) {

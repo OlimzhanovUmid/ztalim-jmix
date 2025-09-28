@@ -9,6 +9,7 @@
         <item view="Schedule.list" title="msg://uz.tonexus.ztalimcrm.view.schedule/scheduleListView.title"/>
         <item view="Group_.list" title="msg://uz.tonexus.ztalimcrm.view.group/groupListView.title"/>
         <item view="Student.list" title="msg://uz.tonexus.ztalimcrm.view.student/studentListView.title"/>
+        <item view="Enrollment.list" title="msg://uz.tonexus.ztalimcrm.view.enrollment/enrollmentListView.title"/>
     </menu>
 
 </menu-config>

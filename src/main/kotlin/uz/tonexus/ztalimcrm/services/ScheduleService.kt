@@ -3,12 +3,7 @@ package uz.tonexus.ztalimcrm.services
 import io.jmix.core.DataManager
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import uz.tonexus.ztalimcrm.entity.Group
-import uz.tonexus.ztalimcrm.entity.LessonSchedule
-import uz.tonexus.ztalimcrm.entity.ScheduleStatus
-import uz.tonexus.ztalimcrm.entity.StudyRoom
-import uz.tonexus.ztalimcrm.entity.Topic
-import uz.tonexus.ztalimcrm.entity.User
+import uz.tonexus.ztalimcrm.entity.*
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -44,7 +39,7 @@ class ScheduleService {
     fun getScheduleForWeek(startDate: LocalDate): List<LessonSchedule> {
         val endDate = startDate.plusDays(6)
         return dataManager.load(LessonSchedule::class.java)
-            .query("select s from Schedule s where s.startTime >= :start and s.startTime <= :end")
+            .query("select s from LessonSchedule s where s.startTime >= :start and s.startTime <= :end")
             .parameter("start", startDate.atStartOfDay())
             .parameter("end", endDate.atTime(23, 59, 59))
             .list()
