@@ -12,6 +12,13 @@
             <loader id="appointmentsDl" readOnly="true">
                 <query>
                     <![CDATA[select e from Appointment e]]>
+                    <condition>
+                        <and>
+                            <c:jpql>
+                                <c:where>e.appointmentStatus = :appointmentStatus</c:where>
+                            </c:jpql>
+                        </and>
+                    </condition>
                 </query>
             </loader>
         </collection>
@@ -19,7 +26,6 @@
     <facets>
         <dataLoadCoordinator auto="true"/>
         <urlQueryParameters>
-            <genericFilter component="genericFilter"/>
             <pagination component="pagination"/>
         </urlQueryParameters>
     </facets>
@@ -28,21 +34,22 @@
         <action id="discardAction" type="lookup_discard"/>
     </actions>
     <layout>
-        <genericFilter id="genericFilter"
-                       dataLoader="appointmentsDl">
-            <properties include=".*"/>
-        </genericFilter>
+        <hbox id="filterAppointments" classNames="buttons-panel">
+            <button id="showNotProcessed" text="msg://showNotProcessed.text"/>
+            <button id="showFailed" text="msg://showFailed.text"/>
+            <button id="showProcessed" text="msg://showProcessed.text"/>
+        </hbox>
         <hbox id="buttonsPanel" classNames="buttons-panel">
             <button id="createButton" action="appointmentsDataGrid.createAction"/>
             <button id="editButton" action="appointmentsDataGrid.editAction"/>
             <button id="removeButton" action="appointmentsDataGrid.removeAction"/>
-            <simplePagination id="pagination" dataLoader="appointmentsDl"/>
         </hbox>
         <dataGrid id="appointmentsDataGrid"
                   width="100%"
                   minHeight="20em"
                   dataContainer="appointmentsDc"
-                  columnReorderingAllowed="true">
+                  columnReorderingAllowed="true"
+                  selectionMode="MULTI">
             <actions>
                 <action id="createAction" type="list_create">
                     <properties>
@@ -75,6 +82,7 @@
                 </editorActionsColumn>
             </columns>
         </dataGrid>
+        <simplePagination id="pagination" dataLoader="appointmentsDl"/>
         <hbox id="lookupActions" visible="false">
             <button id="selectButton" action="selectAction"/>
             <button id="discardButton" action="discardAction"/>

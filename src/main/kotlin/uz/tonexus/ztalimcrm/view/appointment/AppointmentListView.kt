@@ -1,11 +1,14 @@
 package uz.tonexus.ztalimcrm.view.appointment
 
+import com.vaadin.flow.component.ClickEvent
 import com.vaadin.flow.component.grid.ItemDoubleClickEvent
 import com.vaadin.flow.router.Route
 import io.jmix.flowui.Dialogs
 import io.jmix.flowui.app.inputdialog.DialogActions
 import io.jmix.flowui.app.inputdialog.InputParameter.enumParameter
 import io.jmix.flowui.app.inputdialog.InputParameter.stringParameter
+import io.jmix.flowui.kit.component.button.JmixButton
+import io.jmix.flowui.model.CollectionLoader
 import io.jmix.flowui.view.*
 import org.springframework.beans.factory.annotation.Autowired
 import uz.tonexus.ztalimcrm.entity.Appointment
@@ -20,6 +23,8 @@ import uz.tonexus.ztalimcrm.view.main.MainView
 @LookupComponent("appointmentsDataGrid")
 @DialogMode(width = "64em")
 class AppointmentListView : StandardListView<Appointment>() {
+    @ViewComponent
+    private lateinit var appointmentsDl: CollectionLoader<Appointment>
 
     @Autowired
     private lateinit var messageBundle: MessageBundle
@@ -52,5 +57,28 @@ class AppointmentListView : StandardListView<Appointment>() {
                 }
             }
         }.open()
+        appointmentsDl.load()
+    }
+
+    @Subscribe(id = "showNotProcessed", subject = "clickListener")
+    private fun onShowNotProcessedClick(event: ClickEvent<JmixButton>) {
+        loadAppointmentStatus(AppointmentStatus.NotProcessed)
+    }
+
+    @Subscribe(id = "showFailed", subject = "clickListener")
+    private fun onShowFailedClick(event: ClickEvent<JmixButton>) {
+        loadAppointmentStatus(AppointmentStatus.Failed)
+    }
+
+    @Subscribe(id = "showProcessed", subject = "clickListener")
+    private fun onShowProcessedClick(event: ClickEvent<JmixButton>) {
+        loadAppointmentStatus(AppointmentStatus.Processed)
+    }
+
+    private fun loadAppointmentStatus(status: AppointmentStatus) {
+        with(appointmentsDl) {
+            setParameter("appointmentStatus", status.id)
+            load()
+        }
     }
 }
