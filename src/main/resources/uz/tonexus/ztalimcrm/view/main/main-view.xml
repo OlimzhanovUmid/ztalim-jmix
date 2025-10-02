@@ -17,7 +17,7 @@
         </navigationBar>
         <drawerLayout>
             <section id="section" classNames="jmix-main-view-section">
-                <anchor href="./appointments" alignSelf="CENTER">
+                <anchor href="./" alignSelf="CENTER">
                     <image resource="static/images/logo.png" alignSelf="CENTER" maxWidth="95%" maxHeight="95%"/>
                 </anchor>
                 <nav id="navigation"
@@ -34,6 +34,7 @@
             </section>
         </drawerLayout>
         <initialLayout>
+            <h1 text="Welcome to ZTalim!" alignSelf="CENTER"/>
         </initialLayout>
     </appLayout>
 </mainView>
