@@ -15,18 +15,18 @@ import java.util.*
 
 @JmixEntity
 @Entity
-@Table(
-    name = "USER_",
-    indexes = [
-        Index(name = "IDX_USER__ON_USERNAME", columnList = "USERNAME", unique = true)
-    ]
-)
+@Table(name = "USER_", indexes = [
+    Index(name = "IDX_USER__ON_USERNAME", columnList = "USERNAME", unique = true)
+])
 open class User : JmixUserDetails, HasTimeZone {
 
     @Id
     @Column(name = "ID", nullable = false)
     @JmixGeneratedValue
     var id: UUID? = null
+
+    @Column(name = "ROLE")
+    private var role: String? = null
 
     @Version
     @Column(name = "VERSION", nullable = false)
@@ -81,10 +81,16 @@ open class User : JmixUserDetails, HasTimeZone {
 
     override fun isEnabled(): Boolean = active == true
 
-    @get:DependsOnProperties("firstName", "lastName", "username")
+    @get:DependsOnProperties("firstName", "lastName")
     @get:InstanceName
     val displayName: String
-        get() = "${firstName ?: ""} ${lastName ?: ""} [${username ?: ""}]".trim()
+        get() = "${firstName ?: ""} ${lastName ?: ""}".trim()
+
+    fun getRole(): UserRole? = role?.let { UserRole.fromId(it) }
+
+    fun setRole(role: UserRole?) {
+        this.role = role?.id
+    }
 
     override fun getTimeZoneId(): String? {
         return timeZoneId

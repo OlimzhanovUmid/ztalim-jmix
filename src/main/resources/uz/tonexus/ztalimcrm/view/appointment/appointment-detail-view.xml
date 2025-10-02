@@ -10,6 +10,14 @@
             </fetchPlan>
             <loader id="appointmentDl"/>
         </instance>
+        <collection id="usersDc" class="uz.tonexus.ztalimcrm.entity.User">
+            <loader id="usersDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from User e where e.role = 'Teacher'  ]]>
+                </query>
+            </loader>
+            <fetchPlan extends="_base"/>
+        </collection>
     </data>
     <facets>
         <dataLoadCoordinator auto="true"/>
@@ -32,12 +40,12 @@
             <textField id="parentInfoField" property="parentInfo"/>
             <select id="preferredDaysField" property="preferredDays"/>
             <select id="preferredTimeField" property="preferredTime"/>
-            <entityPicker id="teacherField" property="teacher">
-                <actions>
-                    <action id="entityLookupAction" type="entity_lookup"/>
-                    <action id="entityClearAction" type="entity_clear"/>
-                </actions>
-            </entityPicker>
+            <entityComboBox
+                    id="teacherField"
+                    property="teacher"
+                    dataContainer="appointmentDc"
+                    itemsContainer="usersDc"
+            />
             <textField id="commentField" property="comment"/>
             <select id="appointmentStatusField" property="appointmentStatus"/>
         </formLayout>
